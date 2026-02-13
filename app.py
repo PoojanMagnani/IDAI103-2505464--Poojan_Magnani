@@ -1597,14 +1597,20 @@ This analysis is advisory only. All physical restoration work must be performed 
 
     # ==================== TAB 4: AI RESTORATION TIMELINE PLANNER ====================
     with tab4:
-        st.markdown('<div class="glass-card">', unsafe_allow_html=True)
-        st.markdown('<span class="section-eyebrow">Project Planning Tool</span>', unsafe_allow_html=True)
-        st.markdown('<h2 style="font-family: \'Cormorant Garamond\', serif; font-size: 2rem; color: var(--gold-light); margin-top: 0;">AI Restoration Timeline Planner</h2>', unsafe_allow_html=True)
-        st.markdown('<p style="color: var(--text-muted); font-size: 0.92rem; margin-bottom: 2rem; line-height: 1.6;">Configure your project parameters and receive a detailed, phase-by-phase restoration timeline with risk assessments, milestones, and expert scheduling recommendations.</p>', unsafe_allow_html=True)
+        st.markdown("""
+        <div style="background:rgba(26,37,64,0.5);border:1px solid rgba(201,168,76,0.25);border-radius:20px;padding:2.5rem;margin-bottom:2rem;backdrop-filter:blur(15px);">
+            <span style="font-family:'DM Mono',monospace;font-size:0.65rem;color:#2dd4bf;letter-spacing:4px;text-transform:uppercase;margin-bottom:0.8rem;display:block;">Project Planning Tool</span>
+            <div style="font-family:'Cormorant Garamond',serif;font-size:2rem;color:#e4c47e;margin-top:0;">AI Restoration Timeline Planner</div>
+            <p style="color:#9ba3b4;font-size:0.92rem;margin-top:0.8rem;line-height:1.6;">Configure your project parameters and receive a detailed phase-by-phase restoration timeline with risk assessments, milestones, and scheduling recommendations.</p>
+        </div>
+        """, unsafe_allow_html=True)
 
-        # Input Panel
-        st.markdown('<div style="background: rgba(17,24,39,0.6); border: 1px solid var(--border); border-radius: 16px; padding: 2rem; margin-bottom: 2rem;">', unsafe_allow_html=True)
-        st.markdown('<div style="font-family: \'Cormorant Garamond\', serif; font-size: 1.3rem; color: var(--teal); margin-bottom: 1.5rem;">Project Parameters</div>', unsafe_allow_html=True)
+        # ---- INPUTS ----
+        st.markdown("""
+        <div style="background:rgba(17,24,39,0.6);border:1px solid rgba(201,168,76,0.25);border-radius:16px;padding:1.5rem 2rem;margin-bottom:1.5rem;">
+            <div style="font-family:'Cormorant Garamond',serif;font-size:1.3rem;color:#2dd4bf;margin-bottom:0.5rem;">Project Parameters</div>
+        </div>
+        """, unsafe_allow_html=True)
 
         tl_col1, tl_col2 = st.columns(2)
         with tl_col1:
@@ -1613,7 +1619,6 @@ This analysis is advisory only. All physical restoration work must be performed 
                 "Bronze Sculpture", "Textile / Tapestry", "Illuminated Manuscript",
                 "Mural / Fresco", "Ceramic / Pottery", "Mixed Media"
             ], key="tl_art_type")
-
             tl_damage_severity = st.select_slider("Damage Severity", options=[
                 "Minimal (surface dust/light scratches)",
                 "Moderate (fading, minor losses)",
@@ -1621,22 +1626,19 @@ This analysis is advisory only. All physical restoration work must be performed 
                 "Severe (major structural damage, 50%+ loss)",
                 "Critical (near-total deterioration)"
             ], value="Moderate (fading, minor losses)", key="tl_damage")
-
             tl_size = st.selectbox("Artwork Scale", [
-                "Small (< 30cm)", "Medium (30–100cm)", "Large (100–200cm)",
+                "Small (< 30cm)", "Medium (30-100cm)", "Large (100-200cm)",
                 "Very Large (> 200cm)", "Monumental (architectural scale)"
             ], key="tl_size")
 
         with tl_col2:
             tl_urgency = st.selectbox("Project Urgency", [
-                "Flexible (timeline open)", "Standard (6–12 months)",
-                "Priority (3–6 months)", "Urgent (< 3 months)"
+                "Flexible (timeline open)", "Standard (6-12 months)",
+                "Priority (3-6 months)", "Urgent (< 3 months)"
             ], key="tl_urgency")
-
             tl_team_size = st.select_slider("Conservation Team Size", options=[
-                "Solo conservator", "2–3 specialists", "4–6 person team", "Large institutional team (7+)"
-            ], value="2–3 specialists", key="tl_team")
-
+                "Solo conservator", "2-3 specialists", "4-6 person team", "Large institutional team (7+)"
+            ], value="2-3 specialists", key="tl_team")
             tl_goals = st.multiselect("Restoration Goals", [
                 "Stabilisation only", "Full visual restoration",
                 "Scientific documentation", "Public exhibition prep",
@@ -1644,10 +1646,9 @@ This analysis is advisory only. All physical restoration work must be performed 
                 "Educational reproduction", "Insurance documentation"
             ], default=["Stabilisation only", "Full visual restoration"], key="tl_goals")
 
-        st.markdown('</div>', unsafe_allow_html=True)
+        st.markdown("<div style='margin-top:1rem;'></div>", unsafe_allow_html=True)
 
         if st.button("Generate Restoration Timeline →", key="gen_timeline"):
-            # Timeline generation logic
             damage_map = {
                 "Minimal (surface dust/light scratches)": (1, "LOW"),
                 "Moderate (fading, minor losses)": (2, "MEDIUM"),
@@ -1656,23 +1657,17 @@ This analysis is advisory only. All physical restoration work must be performed 
                 "Critical (near-total deterioration)": (5, "HIGH")
             }
             size_map = {
-                "Small (< 30cm)": 0.7,
-                "Medium (30–100cm)": 1.0,
-                "Large (100–200cm)": 1.4,
-                "Very Large (> 200cm)": 1.8,
+                "Small (< 30cm)": 0.7, "Medium (30-100cm)": 1.0,
+                "Large (100-200cm)": 1.4, "Very Large (> 200cm)": 1.8,
                 "Monumental (architectural scale)": 2.5
             }
             urgency_map = {
-                "Flexible (timeline open)": 1.0,
-                "Standard (6–12 months)": 0.85,
-                "Priority (3–6 months)": 0.65,
-                "Urgent (< 3 months)": 0.45
+                "Flexible (timeline open)": 1.0, "Standard (6-12 months)": 0.85,
+                "Priority (3-6 months)": 0.65, "Urgent (< 3 months)": 0.45
             }
             team_map = {
-                "Solo conservator": 1.3,
-                "2–3 specialists": 1.0,
-                "4–6 person team": 0.75,
-                "Large institutional team (7+)": 0.55
+                "Solo conservator": 1.3, "2-3 specialists": 1.0,
+                "4-6 person team": 0.75, "Large institutional team (7+)": 0.55
             }
 
             dmg_level, risk_base = damage_map[tl_damage_severity]
@@ -1680,7 +1675,6 @@ This analysis is advisory only. All physical restoration work must be performed 
             urg_f = urgency_map[tl_urgency]
             team_f = team_map[tl_team_size]
 
-            # Base weeks per phase scaled by damage, size, urgency, team
             def calc_weeks(base_w):
                 return max(1, round(base_w * (dmg_level / 2) * size_f * urg_f * team_f))
 
@@ -1689,12 +1683,13 @@ This analysis is advisory only. All physical restoration work must be performed 
                     "phase": "Phase 01", "icon": "🔬",
                     "title": "Assessment & Documentation",
                     "weeks": calc_weeks(3),
+                    "color": "#2dd4bf",
                     "tasks": [
-                        ("Comprehensive visual inspection and condition mapping", "HIGH"),
-                        ("UV fluorescence, X-radiography, infrared reflectography", "HIGH"),
-                        ("Material sampling and scientific analysis (pigment, substrate, binding media)", "MEDIUM"),
-                        ("Historical research, provenance investigation and archival study", "MEDIUM"),
-                        ("Photographic documentation (raking light, multispectral)", "LOW")
+                        ("Comprehensive visual inspection and condition mapping", "HIGH", "#ef4444"),
+                        ("UV fluorescence, X-radiography, infrared reflectography", "HIGH", "#ef4444"),
+                        ("Material sampling and scientific analysis", "MEDIUM", "#c9a84c"),
+                        ("Historical research, provenance and archival study", "MEDIUM", "#c9a84c"),
+                        ("Photographic documentation (raking light, multispectral)", "LOW", "#2dd4bf"),
                     ],
                     "milestone": "Condition Report & Treatment Proposal approved by stakeholders",
                     "deliverable": "Detailed Condition Report"
@@ -1703,11 +1698,12 @@ This analysis is advisory only. All physical restoration work must be performed 
                     "phase": "Phase 02", "icon": "🛡️",
                     "title": "Emergency Stabilisation",
                     "weeks": calc_weeks(2),
+                    "color": "#ef4444",
                     "tasks": [
-                        ("Consolidation of flaking or delaminating paint layers", "HIGH"),
-                        ("Structural support for fragile or cracked substrate", "HIGH"),
-                        ("Local facing of vulnerable areas prior to treatment", "MEDIUM"),
-                        ("Climate and environmental stabilisation measures", "LOW")
+                        ("Consolidation of flaking or delaminating paint layers", "HIGH", "#ef4444"),
+                        ("Structural support for fragile or cracked substrate", "HIGH", "#ef4444"),
+                        ("Local facing of vulnerable areas prior to treatment", "MEDIUM", "#c9a84c"),
+                        ("Climate and environmental stabilisation measures", "LOW", "#2dd4bf"),
                     ],
                     "milestone": "Artwork structurally stable and safe to proceed",
                     "deliverable": "Stabilisation Report"
@@ -1716,12 +1712,13 @@ This analysis is advisory only. All physical restoration work must be performed 
                     "phase": "Phase 03", "icon": "🧹",
                     "title": "Surface Cleaning & Preparation",
                     "weeks": calc_weeks(4),
+                    "color": "#c9a84c",
                     "tasks": [
-                        ("Dry mechanical cleaning — removal of surface deposits", "LOW"),
-                        ("Solvent-based cleaning of discoloured varnish layers", "HIGH"),
-                        ("Aqueous cleaning where appropriate (pH controlled)", "MEDIUM"),
-                        ("Removal of previous (incompatible) restorations or overpaints", "HIGH"),
-                        ("Final surface preparation and assessment of original material revealed", "MEDIUM")
+                        ("Dry mechanical cleaning — removal of surface deposits", "LOW", "#2dd4bf"),
+                        ("Solvent-based cleaning of discoloured varnish layers", "HIGH", "#ef4444"),
+                        ("Aqueous cleaning where appropriate (pH controlled)", "MEDIUM", "#c9a84c"),
+                        ("Removal of previous incompatible restorations or overpaints", "HIGH", "#ef4444"),
+                        ("Final surface preparation and assessment of revealed original", "MEDIUM", "#c9a84c"),
                     ],
                     "milestone": "Original surface fully accessible and documented",
                     "deliverable": "Cleaning Test Records & Solubility Maps"
@@ -1730,11 +1727,12 @@ This analysis is advisory only. All physical restoration work must be performed 
                     "phase": "Phase 04", "icon": "🔧",
                     "title": "Structural Conservation",
                     "weeks": calc_weeks(3) if dmg_level >= 3 else 0,
+                    "color": "#a78bfa",
                     "tasks": [
-                        ("Structural consolidation of substrate (relining, cradling, backing)", "HIGH"),
-                        ("Loss filling with appropriate conservation-grade fills", "MEDIUM"),
-                        ("Surface texture inpainting to match surrounding original", "MEDIUM"),
-                        ("Adhesive consolidation of all previously loose elements", "LOW")
+                        ("Structural consolidation of substrate (relining, cradling)", "HIGH", "#ef4444"),
+                        ("Loss filling with conservation-grade fills", "MEDIUM", "#c9a84c"),
+                        ("Surface texture work to match surrounding original", "MEDIUM", "#c9a84c"),
+                        ("Adhesive consolidation of all previously loose elements", "LOW", "#2dd4bf"),
                     ],
                     "milestone": "Structural integrity fully restored",
                     "deliverable": "Structural Treatment Report"
@@ -1743,12 +1741,13 @@ This analysis is advisory only. All physical restoration work must be performed 
                     "phase": "Phase 05", "icon": "🎨",
                     "title": "Aesthetic Restoration & Inpainting",
                     "weeks": calc_weeks(5),
+                    "color": "#c9a84c",
                     "tasks": [
-                        ("Colour matching and reference sample creation", "HIGH"),
-                        ("Inpainting of losses using reversible conservation media", "HIGH"),
-                        ("Texture recreation to integrate losses with original surface", "HIGH"),
-                        ("Intermediate varnish application for visual unification", "MEDIUM"),
-                        ("Chromatic reintegration review with client / curator", "MEDIUM")
+                        ("Colour matching and reference sample creation", "HIGH", "#ef4444"),
+                        ("Inpainting of losses using reversible conservation media", "HIGH", "#ef4444"),
+                        ("Texture recreation to integrate losses with original surface", "HIGH", "#ef4444"),
+                        ("Intermediate varnish application for visual unification", "MEDIUM", "#c9a84c"),
+                        ("Chromatic reintegration review with client / curator", "MEDIUM", "#c9a84c"),
                     ],
                     "milestone": "Visual reintegration approved — aesthetic integrity restored",
                     "deliverable": "Inpainting Log & Photographic Record"
@@ -1757,159 +1756,143 @@ This analysis is advisory only. All physical restoration work must be performed 
                     "phase": "Phase 06", "icon": "✅",
                     "title": "Final Varnishing, Review & Handover",
                     "weeks": calc_weeks(2),
+                    "color": "#2dd4bf",
                     "tasks": [
-                        ("Application of final protective varnish (reversible, UV-stable)", "MEDIUM"),
-                        ("Full post-treatment documentation photography", "LOW"),
-                        ("Preparation of final conservation treatment report", "HIGH"),
-                        ("Client review, sign-off and handover", "LOW"),
-                        ("Long-term care and preventive conservation guidance issued", "LOW")
+                        ("Application of final protective varnish (reversible, UV-stable)", "MEDIUM", "#c9a84c"),
+                        ("Full post-treatment documentation photography", "LOW", "#2dd4bf"),
+                        ("Preparation of final conservation treatment report", "HIGH", "#ef4444"),
+                        ("Client review, sign-off and handover", "LOW", "#2dd4bf"),
+                        ("Long-term care and preventive conservation guidance issued", "LOW", "#2dd4bf"),
                     ],
                     "milestone": "Project complete — artwork delivered with full documentation",
                     "deliverable": "Final Conservation Report & Certificate"
                 }
             ]
 
-            active_phases = [p for p in phases if p['weeks'] > 0]
-            total_weeks = sum(p['weeks'] for p in active_phases)
+            active_phases = [p for p in phases if p["weeks"] > 0]
+            total_weeks = sum(p["weeks"] for p in active_phases)
             total_months = round(total_weeks / 4.3, 1)
 
-            risk_map = {"HIGH": "risk-high", "MEDIUM": "risk-medium", "LOW": "risk-low"}
-
-            # Summary stats
-            st.markdown('<hr class="divider-gold">', unsafe_allow_html=True)
+            # ---- SUMMARY STATS ----
             st.markdown("""
-            <div style="font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; color: var(--text-primary); margin: 1.5rem 0 1rem 0; font-weight: 300;">
-                Project Summary
-            </div>
+            <div style="height:1px;background:linear-gradient(90deg,transparent,rgba(201,168,76,0.3),transparent);margin:1.5rem 0;"></div>
+            <div style="font-family:'Cormorant Garamond',serif;font-size:1.5rem;color:#f0ece4;margin-bottom:1rem;font-weight:300;">Project Summary</div>
             """, unsafe_allow_html=True)
 
             s1, s2, s3, s4 = st.columns(4)
-            for col, val, label in [
-                (s1, f"{total_weeks}w", "Total Duration"),
-                (s2, f"{total_months}mo", "Approx. Months"),
-                (s3, str(len(active_phases)), "Project Phases"),
-                (s4, risk_base, "Risk Level")
-            ]:
+            for col, val, lbl in [(s1, f"{total_weeks}w", "Total Duration"),
+                                   (s2, f"{total_months}mo", "Est. Months"),
+                                   (s3, str(len(active_phases)), "Phases"),
+                                   (s4, risk_base, "Risk Level")]:
                 with col:
                     st.markdown(f"""
-                    <div class="summary-stat">
-                        <div class="stat-value">{val}</div>
-                        <div class="stat-label">{label}</div>
+                    <div style="background:rgba(17,24,39,0.8);border:1px solid rgba(201,168,76,0.25);border-radius:14px;padding:1.5rem;text-align:center;">
+                        <div style="font-family:'Cormorant Garamond',serif;font-size:2.5rem;color:#e4c47e;line-height:1;">{val}</div>
+                        <div style="font-size:0.7rem;color:#9ba3b4;text-transform:uppercase;letter-spacing:2px;font-family:'DM Mono',monospace;margin-top:0.5rem;">{lbl}</div>
                     </div>
                     """, unsafe_allow_html=True)
 
-            # Urgency note
             if tl_urgency == "Urgent (< 3 months)" and total_weeks > 12:
-                st.warning(f"⚠️ Urgent timeline selected but estimated duration is {total_weeks} weeks. Consider expanding team size or scoping down goals.")
+                st.warning(f"Urgent timeline selected but estimated duration is {total_weeks} weeks. Consider expanding team size or reducing scope.")
 
-            # Gantt-style visual timeline
+            # ---- PHASE CARDS using native Streamlit ----
             st.markdown("""
-            <div style="font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; color: var(--text-primary); margin: 2rem 0 1rem 0; font-weight: 300;">
-                Phase-by-Phase Timeline
-            </div>
+            <div style="font-family:'Cormorant Garamond',serif;font-size:1.5rem;color:#f0ece4;margin:2rem 0 1rem;font-weight:300;">Phase-by-Phase Timeline</div>
             """, unsafe_allow_html=True)
 
             running_week = 0
             for i, phase in enumerate(active_phases):
                 start_w = running_week + 1
-                end_w = running_week + phase['weeks']
+                end_w = running_week + phase["weeks"]
                 running_week = end_w
+                bar_pct = int((phase["weeks"] / max(total_weeks, 1)) * 100)
+                ph_color = phase["color"]
 
-                priority_colors = {"HIGH": "#ef4444", "MEDIUM": "#c9a84c", "LOW": "#2dd4bf"}
-
-                tasks_html = ""
-                for task, priority in phase['tasks']:
-                    color = priority_colors[priority]
-                    tasks_html += f"""
-                    <div style="background: rgba(10,14,26,0.5); border-left: 2px solid {color}; padding: 0.6rem 1rem; border-radius: 0 8px 8px 0; margin: 0.5rem 0; display: flex; align-items: center; justify-content: space-between; gap: 1rem;">
-                        <span style="color: #9ba3b4; font-size: 0.85rem; flex: 1;">{task}</span>
-                        <span class="risk-badge {risk_map[priority]}">{priority}</span>
-                    </div>
-                    """
-
-                week_bar_pct = int((phase['weeks'] / max(total_weeks, 1)) * 100)
-                bar_color = "#c9a84c" if i % 2 == 0 else "#2dd4bf"
-
+                # Phase header
                 st.markdown(f"""
-                <div class="timeline-card">
-                    <div style="display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem; flex-wrap: wrap;">
+                <div style="background:rgba(26,37,64,0.55);border:1px solid {ph_color}44;border-left:4px solid {ph_color};border-radius:14px;padding:1.4rem 1.8rem;margin-top:1rem;">
+                    <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:0.5rem;">
                         <div>
-                            <div class="timeline-phase-label">{phase['phase']} &nbsp;·&nbsp; {phase['icon']}</div>
-                            <div class="timeline-phase-title">{phase['title']}</div>
-                            <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: 0.5rem;">
-                                <span class="timeline-duration-badge">Weeks {start_w}–{end_w}</span>
-                                <span class="timeline-duration-badge">{phase['weeks']} week{'s' if phase['weeks'] != 1 else ''}</span>
+                            <div style="font-family:'DM Mono',monospace;font-size:0.6rem;color:{ph_color};letter-spacing:3px;text-transform:uppercase;">{phase["phase"]} &nbsp;·&nbsp; {phase["icon"]}</div>
+                            <div style="font-family:'Cormorant Garamond',serif;font-size:1.3rem;color:#e4c47e;margin:0.3rem 0;">{phase["title"]}</div>
+                            <div style="display:inline-block;background:rgba(201,168,76,0.12);border:1px solid rgba(201,168,76,0.3);color:#e4c47e;padding:0.2rem 0.7rem;border-radius:20px;font-size:0.75rem;font-family:'DM Mono',monospace;">
+                                Weeks {start_w}–{end_w} &nbsp;·&nbsp; {phase["weeks"]} week{"s" if phase["weeks"] != 1 else ""}
                             </div>
                         </div>
-                        <div style="text-align: right; flex-shrink: 0;">
-                            <div style="font-family: 'DM Mono', monospace; font-size: 0.7rem; color: var(--text-muted); letter-spacing: 2px; text-transform: uppercase;">Share of total</div>
-                            <div style="font-family: 'Cormorant Garamond', serif; font-size: 1.8rem; color: {bar_color};">{week_bar_pct}%</div>
+                        <div style="text-align:right;">
+                            <div style="font-size:0.65rem;color:#9ba3b4;font-family:'DM Mono',monospace;letter-spacing:2px;text-transform:uppercase;">Share of total</div>
+                            <div style="font-family:'Cormorant Garamond',serif;font-size:2rem;color:{ph_color};">{bar_pct}%</div>
                         </div>
                     </div>
+                    <div style="height:5px;background:rgba(10,14,26,0.5);border-radius:4px;margin:1rem 0;overflow:hidden;">
+                        <div style="width:{bar_pct}%;height:100%;background:linear-gradient(90deg,{ph_color}66,{ph_color});border-radius:4px;"></div>
+                    </div>
+                </div>
+                """, unsafe_allow_html=True)
 
-                    <div style="background: rgba(10,14,26,0.5); border-radius: 4px; height: 6px; margin: 1rem 0; overflow: hidden;">
-                        <div style="width: {week_bar_pct}%; height: 100%; background: linear-gradient(90deg, {bar_color}88, {bar_color}); border-radius: 4px;"></div>
+                # Tasks
+                for task_text, priority, t_color in phase["tasks"]:
+                    st.markdown(f"""
+                    <div style="background:rgba(10,14,26,0.45);border-left:2px solid {t_color};padding:0.55rem 1rem;border-radius:0 8px 8px 0;margin:0.4rem 1rem 0.4rem 2rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;">
+                        <span style="color:#9ba3b4;font-size:0.83rem;">{task_text}</span>
+                        <span style="background:rgba(0,0,0,0.3);border:1px solid {t_color}55;color:{t_color};padding:0.15rem 0.55rem;border-radius:20px;font-size:0.68rem;font-family:'DM Mono',monospace;white-space:nowrap;">{priority}</span>
                     </div>
+                    """, unsafe_allow_html=True)
 
-                    <div style="margin-top: 1rem;">
-                        {tasks_html}
+                # Milestone + Deliverable
+                st.markdown(f"""
+                <div style="background:rgba(201,168,76,0.05);border:1px dashed rgba(201,168,76,0.25);border-radius:10px;padding:0.75rem 1.2rem;margin:0.8rem 1rem 0 1rem;display:flex;align-items:center;gap:0.8rem;">
+                    <div style="width:10px;height:10px;background:#c9a84c;border-radius:50%;box-shadow:0 0 10px rgba(201,168,76,0.5);flex-shrink:0;"></div>
+                    <div>
+                        <div style="font-family:'DM Mono',monospace;font-size:0.58rem;color:#c9a84c;letter-spacing:2px;text-transform:uppercase;">Milestone</div>
+                        <div style="color:#f0ece4;font-size:0.85rem;margin-top:0.15rem;">{phase["milestone"]}</div>
                     </div>
-
-                    <div style="background: rgba(201,168,76,0.06); border: 1px dashed rgba(201,168,76,0.25); border-radius: 10px; padding: 0.8rem 1.2rem; margin-top: 1rem; display: flex; align-items: center; gap: 0.8rem;">
-                        <div class="milestone-dot"></div>
-                        <div>
-                            <div style="font-family: 'DM Mono', monospace; font-size: 0.6rem; color: var(--gold); letter-spacing: 2px; text-transform: uppercase;">Milestone</div>
-                            <div style="color: var(--text-primary); font-size: 0.88rem; margin-top: 0.2rem;">{phase['milestone']}</div>
-                        </div>
-                    </div>
-                    <div style="margin-top: 0.8rem; display: flex; align-items: center; gap: 0.5rem;">
-                        <span style="color: var(--text-muted); font-size: 0.75rem; font-family: 'DM Mono', monospace; text-transform: uppercase; letter-spacing: 1px;">Deliverable →</span>
-                        <span class="badge-teal">{phase['deliverable']}</span>
-                    </div>
+                </div>
+                <div style="margin:0.5rem 1rem 0.8rem 1rem;">
+                    <span style="color:#9ba3b4;font-size:0.7rem;font-family:'DM Mono',monospace;text-transform:uppercase;letter-spacing:1px;">Deliverable → </span>
+                    <span style="background:rgba(45,212,191,0.1);border:1px solid rgba(45,212,191,0.3);color:#2dd4bf;padding:0.2rem 0.6rem;border-radius:20px;font-size:0.72rem;font-family:'DM Mono',monospace;">{phase["deliverable"]}</span>
                 </div>
                 """, unsafe_allow_html=True)
 
                 if i < len(active_phases) - 1:
-                    st.markdown('<div class="timeline-connector">↓</div>', unsafe_allow_html=True)
+                    st.markdown("""
+                    <div style="text-align:center;color:#9ba3b4;font-size:1.2rem;margin:0.3rem 0;">↓</div>
+                    """, unsafe_allow_html=True)
 
-            # Recommendations
+            # ---- RECOMMENDATIONS ----
             st.markdown("""
-            <div style="font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; color: var(--text-primary); margin: 2rem 0 1rem 0; font-weight: 300;">
-                Planning Recommendations
-            </div>
+            <div style="font-family:'Cormorant Garamond',serif;font-size:1.5rem;color:#f0ece4;margin:2rem 0 1rem;font-weight:300;">Planning Recommendations</div>
             """, unsafe_allow_html=True)
 
             rec_items = []
             if dmg_level >= 4:
-                rec_items.append(("🚨", "HIGH", "Immediate structural stabilisation is critical. Do not proceed to cleaning before securing all fragile elements."))
+                rec_items.append(("🚨", "HIGH", "#ef4444", "Immediate structural stabilisation is critical. Do not proceed to cleaning before securing all fragile elements."))
             if "Scientific documentation" in tl_goals:
-                rec_items.append(("🔬", "MEDIUM", "Allow additional 2–3 weeks for laboratory analysis turnaround. Partner with a university conservation science department."))
+                rec_items.append(("🔬", "MEDIUM", "#c9a84c", "Allow additional 2-3 weeks for laboratory analysis. Partner with a university conservation science department."))
             if "Public exhibition prep" in tl_goals:
-                rec_items.append(("🖼️", "MEDIUM", "Build a 4-week buffer before exhibition date. Final varnish requires 2 weeks to cure fully under stable conditions."))
-            if tl_urgency in ["Priority (3–6 months)", "Urgent (< 3 months)"]:
-                rec_items.append(("⚡", "HIGH", "Compressed timeline increases risk. Consider expanding team size or reducing scope to only critical interventions."))
-            rec_items.append(("📋", "LOW", "Document every intervention in a running treatment log. Photographs before, during and after each phase are mandatory."))
-            rec_items.append(("🌡️", "LOW", "Maintain stable environment throughout: 18–22°C, 45–55% RH. Fluctuations can undo treatment gains."))
+                rec_items.append(("🖼️", "MEDIUM", "#c9a84c", "Build a 4-week buffer before exhibition date. Final varnish requires 2 weeks to cure under stable conditions."))
+            if tl_urgency in ["Priority (3-6 months)", "Urgent (< 3 months)"]:
+                rec_items.append(("⚡", "HIGH", "#ef4444", "Compressed timeline increases risk. Consider expanding team size or reducing scope to critical interventions only."))
+            rec_items.append(("📋", "LOW", "#2dd4bf", "Document every intervention in a running treatment log. Photographs before, during and after each phase are mandatory."))
+            rec_items.append(("🌡️", "LOW", "#2dd4bf", "Maintain stable environment throughout: 18-22°C, 45-55% RH. Fluctuations can undo treatment gains."))
             if "Digital archiving" in tl_goals:
-                rec_items.append(("💾", "LOW", "Schedule multispectral imaging session at end of Phase 3 (cleaned but pre-inpainted) for the highest-quality archive record."))
+                rec_items.append(("💾", "LOW", "#2dd4bf", "Schedule multispectral imaging at end of Phase 3 (cleaned but pre-inpainted) for the highest-quality archive record."))
 
-            for icon, priority, text in rec_items:
-                color = {"HIGH": "#ef4444", "MEDIUM": "#c9a84c", "LOW": "#2dd4bf"}[priority]
+            for r_icon, r_priority, r_color, r_text in rec_items:
                 st.markdown(f"""
-                <div style="background: rgba(17,24,39,0.6); border: 1px solid {color}30; border-left: 3px solid {color}; border-radius: 10px; padding: 1rem 1.2rem; margin-bottom: 0.8rem; display: flex; align-items: flex-start; gap: 1rem;">
-                    <span style="font-size: 1.3rem; flex-shrink: 0; margin-top: 0.1rem;">{icon}</span>
-                    <div style="flex: 1;">
-                        <span class="risk-badge {risk_map[priority]}" style="margin-bottom: 0.4rem; display: inline-block;">{priority}</span>
-                        <p style="color: #b0bbc8; font-size: 0.88rem; margin: 0; line-height: 1.6;">{text}</p>
+                <div style="background:rgba(17,24,39,0.6);border:1px solid {r_color}30;border-left:3px solid {r_color};border-radius:10px;padding:0.9rem 1.2rem;margin-bottom:0.7rem;display:flex;align-items:flex-start;gap:0.9rem;">
+                    <span style="font-size:1.2rem;flex-shrink:0;">{r_icon}</span>
+                    <div>
+                        <span style="background:rgba(0,0,0,0.3);border:1px solid {r_color}55;color:{r_color};padding:0.15rem 0.55rem;border-radius:20px;font-size:0.68rem;font-family:'DM Mono',monospace;">{r_priority}</span>
+                        <p style="color:#b0bbc8;font-size:0.86rem;margin:0.4rem 0 0 0;line-height:1.6;">{r_text}</p>
                     </div>
                 </div>
                 """, unsafe_allow_html=True)
 
-            # Download button
-            timeline_export = f"""ARTRESTORER AI — RESTORATION TIMELINE PLAN
-══════════════════════════════════════════════════════
-Generated: {datetime.now().strftime('%B %d, %Y at %H:%M')}
-Project: {st.session_state.user_data.get('name', 'N/A')} | {tl_artwork_type}
+            # ---- DOWNLOAD ----
+            timeline_export = f"""ARTRESTORER AI - RESTORATION TIMELINE PLAN
+Generated: {datetime.now().strftime("%B %d, %Y at %H:%M")}
+Project: {st.session_state.user_data.get("name", "N/A")} | {tl_artwork_type}
 
 PARAMETERS
 Artwork Type:    {tl_artwork_type}
@@ -1917,7 +1900,7 @@ Damage:          {tl_damage_severity}
 Scale:           {tl_size}
 Team:            {tl_team_size}
 Urgency:         {tl_urgency}
-Goals:           {', '.join(tl_goals)}
+Goals:           {", ".join(tl_goals)}
 
 SUMMARY
 Total Duration:  {total_weeks} weeks (~{total_months} months)
@@ -1928,12 +1911,13 @@ PHASES
 """
             rw = 0
             for ph in active_phases:
-                sw = rw + 1; ew = rw + ph['weeks']; rw = ew
-                timeline_export += f"\n{ph['phase']}: {ph['title']}\nWeeks {sw}–{ew} ({ph['weeks']}w)\n"
-                for t, p in ph['tasks']:
+                sw = rw + 1; ew = rw + ph["weeks"]; rw = ew
+                timeline_export += f"\n{ph['phase']}: {ph['title']}\nWeeks {sw}-{ew} ({ph['weeks']}w)\n"
+                for t, p, _ in ph["tasks"]:
                     timeline_export += f"  [{p}] {t}\n"
                 timeline_export += f"Milestone: {ph['milestone']}\nDeliverable: {ph['deliverable']}\n"
 
+            st.markdown("<div style='margin-top:1.5rem;'></div>", unsafe_allow_html=True)
             st.download_button(
                 label="📥 Download Timeline Plan",
                 data=timeline_export,
