@@ -106,7 +106,7 @@ Maintaining transparency about AI limitations
 The application is developed using Streamlit and is available online:
 
 # Live App: 
-https://idai103-2505464--poojanmagnani-zjzimmruezvllaea2cjget.streamlit.app/
+https://idai103-2505464--poojanmagnani-zupa38xllgsksdzucmsrvk.streamlit.app/
 
 
 # API Usage
